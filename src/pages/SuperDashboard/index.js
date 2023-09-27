@@ -6,7 +6,6 @@ import Breadcrumbs from '../../components/Common/Breadcrumb';
 
 //Import Components
 import Counter3 from "./Counter3";
-import Counter2 from "./Counter2";
 import RevenueAnalytics from "./RevenueAnalytics";
 import SalesAnalytics from "./SalesAnalytics";
 import EarningReports from "./EarningReports";
@@ -14,7 +13,6 @@ import Sources from "./Sources";
 import RecentlyActivity from "./RecentlyActivity";
 import RevenueByLocations from "./RevenueByLocations";
 import ChatBox from "./ChatBox";
-import Appointments from "./Appointments";
 
 import { toast } from 'react-toastify'; // Import toast from react-toastify
 import axios from 'axios';

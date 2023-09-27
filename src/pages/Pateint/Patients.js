@@ -59,7 +59,7 @@ class Patients extends Component {
 
     
         try {
-            const response = await axios.post(`http://194.163.40.231:8080/Patient/details/`,{client_id}, {
+            const response = await axios.post(`/Patient/details/`,{client_id}, {
                 
                 headers: {
                     "Content-Type": "application/json", // Set the content type to JSON
@@ -104,7 +104,7 @@ class Patients extends Component {
       deletePatient = async (patient_id, client_id, access_token) => {
         try {
           const response = await axios.post(
-            'http://194.163.40.231:8080/Patient/deleteBy/',
+            '/Patient/deleteBy/',
             { patient_id, client_id },
             {
               headers: {
@@ -222,15 +222,16 @@ class Patients extends Component {
         const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
           // Filter the data based on the searchQuery
           const filteredPatients = data.filter((patient) => {
-            const firstNameMatch = patient.first_name.toLowerCase().includes(searchQuery.toLowerCase());
-            const lastNameMatch = patient.last_name.toLowerCase().includes(searchQuery.toLowerCase());
+            // const firstNameMatch = patient.first_name.toLowerCase().includes(searchQuery.toLowerCase());
+            // const lastNameMatch = patient.last_name.toLowerCase().includes(searchQuery.toLowerCase());
+            const fullName = `${patient.first_name} ${patient.last_name}`; // Combine first name and last name
+            const fullNameMatch = fullName.toLowerCase().includes(searchQuery.toLowerCase());
             const emailMatch = patient.email.toLowerCase().includes(searchQuery.toLowerCase());
             const contactNumberMatch = patient.contact_number.toLowerCase().includes(searchQuery.toLowerCase());
             
             // Return true if at least one condition is met
             return (
-                firstNameMatch ||
-                lastNameMatch ||
+                fullNameMatch ||
                 emailMatch ||
                 contactNumberMatch 
                 

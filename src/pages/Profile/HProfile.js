@@ -43,7 +43,7 @@ class HProfile extends Component {
     if (access) {
       this.setState({ access_token: access }, () => {
         this.setState({ client_id: id }, () => {
-          fetch(`http://194.163.40.231:8080/Hospital/list/${this.state.client_id}/`, {
+          fetch(`/Hospital/list/${this.state.client_id}/`, {
             headers: {
               Authorization: `Bearer ${this.state.access_token}`,
             },
@@ -132,7 +132,7 @@ class HProfile extends Component {
     // };
     handleSubmit = (e) => {
         e.preventDefault();
-    
+         const {client_id,access_token} =this.state;
         const formData = new FormData();
         formData.append("hospital_name", this.state.hospital_name);
         formData.append("owner_name", this.state.owner_name);
@@ -147,21 +147,22 @@ class HProfile extends Component {
             formData.append("profile_image", this.state.profile);
         }
     
-        axios.put(`http://194.163.40.231:8080/Hospital/update/${this.state.client_id}/`, formData, {
+        axios.put(`/Hospital/update/${client_id}/`, formData, {
             headers: {
-                Authorization: `Bearer ${this.state.access_token}`,
+                Authorization: `Bearer ${access_token}`,
                 'Content-Type': 'multipart/form-data',
             },
         })
         .then((response) => {
             // Handle success response here, e.g., show a success message
-            window.alert("Profile updated successfully");
+            toast.success("Profile updated successfully");
             this.fetchDataFromAPI();
 
         })
         .catch((error) => {
             // Handle error here, e.g., show an error message
             console.error("Error updating profile:", error);
+            toast.error("Something went wrong")
         });
     };
     

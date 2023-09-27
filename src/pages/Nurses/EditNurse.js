@@ -38,7 +38,7 @@ class EditNurse extends Component {
 
 
         try {
-            const response = await fetch(`http://194.163.40.231:8080/Nurse/details-By/`, {
+            const response = await fetch(`/Nurse/details-By/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -102,7 +102,7 @@ class EditNurse extends Component {
         };
     
         try {
-          const response = await axios.put(`http://194.163.40.231:8080/Nurse/Updated/`, formData, {
+          const response = await axios.put(`/Nurse/Updated/`, formData, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${access_token}`,
@@ -113,6 +113,7 @@ class EditNurse extends Component {
     
           if (data.message) {
             toast.success(data.message);
+            this.props.history.push("/nurse-list");
           } else {
             toast.error('An error occurred while processing your request.');
           }
@@ -173,7 +174,7 @@ class EditNurse extends Component {
                                                         </div>
                                                     </div>
                                                 </Col>
-                                                <Col md="4">
+                                                <Col md="6">
                                                     <div className="mb-3 position-relative">
                                                         <Label className="form-label" htmlFor="validationTooltip04">Gender</Label>
                                                         <select className="form-control" value={gender} name="gender" onChange={this.handleChange}>

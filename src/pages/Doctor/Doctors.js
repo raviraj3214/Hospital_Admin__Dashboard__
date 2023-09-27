@@ -60,7 +60,7 @@ class Doctors extends Component {
 
         try {
             const { client_id, sortOrder } = this.state;
-            const response = await axios.post(`http://194.163.40.231:8080/Doctor/details/`, { client_id }, {
+            const response = await axios.post(`/Doctor/details/`, { client_id }, {
                 headers: {
                     "Content-Type": "application/json", // Set the content type to JSON
                     'Authorization': `Bearer ${acces}`,
@@ -106,7 +106,7 @@ class Doctors extends Component {
       deleteDoctor = async (doctor_id, client_id, access_token) => {
         try {
           await axios.post(
-            'http://194.163.40.231:8080/Doctor/deleteBy/',
+            '/Doctor/deleteBy/',
             { doctor_id, client_id },
             {
               headers: {
@@ -230,8 +230,10 @@ class Doctors extends Component {
 
         // Filter the data based on the searchQuery
         const filteredDoctors = data.filter((doctor) => {
-            const firstNameMatch = doctor.first_name.toLowerCase().includes(searchQuery.toLowerCase());
-            const lastNameMatch = doctor.last_name.toLowerCase().includes(searchQuery.toLowerCase());
+            // const firstNameMatch = doctor.first_name.toLowerCase().includes(searchQuery.toLowerCase());
+            // const lastNameMatch = doctor.last_name.toLowerCase().includes(searchQuery.toLowerCase());
+            const fullName = `${doctor.first_name} ${doctor.last_name}`; // Combine first name and last name
+    const fullNameMatch = fullName.toLowerCase().includes(searchQuery.toLowerCase());
             const emailMatch = doctor.email.toLowerCase().includes(searchQuery.toLowerCase());
             const contactNumberMatch = doctor.contact_number.toLowerCase().includes(searchQuery.toLowerCase());
             const departmentMatch = doctor.department.toLowerCase().includes(searchQuery.toLowerCase());
@@ -239,8 +241,7 @@ class Doctors extends Component {
 
             // Return true if at least one condition is met
             return (
-                firstNameMatch ||
-                lastNameMatch ||
+                fullNameMatch ||
                 emailMatch ||
                 contactNumberMatch ||
                 departmentMatch ||
